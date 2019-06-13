@@ -3,6 +3,7 @@ import formatter from '@/core/utils/formatter'
 import { isNil } from 'lodash'
 
 Vue.filter('cpf', formatter.formatCPF)
+Vue.filter('currency', formatter.formatCurrency)
 Vue.filter('rg', formatter.formatRG)
 Vue.filter('cnpj', formatter.formatCnpj)
 Vue.filter('cep', formatter.formatCep)

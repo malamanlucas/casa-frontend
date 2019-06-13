@@ -2,6 +2,7 @@ import moment from 'moment'
 import maskHelpers from './maskHelpers'
 import { conformToMask } from 'vue-text-mask'
 import { isNil } from 'lodash'
+import formatCurrencyToBr from 'format-currency-to-br'
 
 export const extractOnlyNumbers = value => isNil(value) ? '' : value.trim().replace(/[^0-9]/g, '')
 export const extractOnlyNumbersAndLetters = value => isNil(value) ? '' : value.trim().replace(/[^0-9a-zA-Z]]/g, '')
@@ -11,6 +12,7 @@ const formatter = {
   normalizeText,
   extractOnlyNumbers,
   extractOnlyNumbersAndLetters,
+  formatCurrency: value => isNil(value) ? value : formatCurrencyToBr(value),
   formatDate: (value, patternFrom = 'DD/MM/YYYY', patternTo = 'YYYY-MM-DD') => {
     if (isNil(value)) {
       return ''

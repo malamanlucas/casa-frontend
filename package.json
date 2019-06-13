@@ -9,8 +9,12 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "format-currency-to-br": "^1.0.0",
+    "moment": "^2.24.0",
+    "text-mask-addons": "^3.8.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
+    "vue-text-mask": "^6.1.2",
     "vuetify": "^1.5.5",
     "vuex": "^3.0.1"
   },
