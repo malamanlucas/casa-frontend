@@ -82,7 +82,7 @@ export default {
   }),
   methods: {
     async load() {
-      const response = await this.$axios.get("http://localhost:9090/residence");
+      const response = await this.$axios.get("http://167.99.225.76:9090/residence");
       this.residences = response.data;
     }
   },
