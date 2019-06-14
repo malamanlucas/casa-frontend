@@ -1,16 +1,9 @@
 <template>
   <div>
-
     <v-card-title>
       Residence System feio para glória de Deus!
       <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="search"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
+      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
     </v-card-title>
 
     <v-data-table
@@ -18,9 +11,27 @@
       :expand="true"
       :headers="headers"
       :items="residences"
-      item-key="title"
+      item-key="id"
       class="elevation-1"
     >
+      <!-- <template #headers="{ headers }">
+        <tr>
+          <th
+            v-for="header in headers"
+            :key="header.text"
+            :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
+            @click="changeSort(header.value)"
+          >
+            <v-icon small>arrow_upward</v-icon>
+            {{ header.text }}
+          </th>
+        </tr>
+      </template> -->
+
+      <template v-slot:no-data>
+        <v-alert :value="true" color="error" icon="warning">Nenhuma residência cadastrada no banco</v-alert>
+      </template>
+
       <template #items="props">
         <tr @click="props.expanded = !props.expanded">
           <td>{{ props.item.address.district }}</td>
@@ -67,7 +78,10 @@
 <script>
 export default {
   data: () => ({
-    search: '',
+    pagination: {
+      sortBy: ""
+    },
+    search: "",
     expand: false,
     headers: [
       { text: "Bairro", value: "address.district" },
@@ -82,8 +96,16 @@ export default {
   }),
   methods: {
     async load() {
-      const response = await this.$axios.get('/residence');
+      const response = await this.$axios.get("/residence");
       this.residences = response.data;
+    },
+    changeSort(column) {
+      if (this.pagination.sortBy === column) {
+        this.pagination.descending = !this.pagination.descending;
+      } else {
+        this.pagination.sortBy = column;
+        this.pagination.descending = false;
+      }
     }
   },
   mounted() {
